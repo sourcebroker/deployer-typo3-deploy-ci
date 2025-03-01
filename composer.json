@@ -1,0 +1,45 @@
+{
+  "name": "sourcebroker/deployer-typo3-deploy-ci",
+  "description": "CI for TYPO3 with Deployer",
+  "license": "MIT",
+  "keywords": [
+    "TYPO3",
+    "deployer",
+    "CI"
+  ],
+  "authors": [
+    {
+      "name": "Krystian Szymukowicz",
+      "email": "k.szymukowicz@gmail.com"
+    }
+  ],
+  "require": {
+    "deployer/deployer": "~7.0 || dev-master",
+    "helhum/typo3-console": "^8 || dev-master",
+    "sourcebroker/deployer-extended": "^20 || dev-master",
+    "sourcebroker/deployer-loader": "^4 || dev-master",
+    "typo3/cms-core": "^12.4 || ^13.4"
+  },
+  "autoload": {
+    "psr-4": {
+      "SourceBroker\\DeployerTypo3DeployCi\\": "src/"
+    }
+  },
+  "extra": {
+    "deployer": {
+      "loader-file": "config/loader.php"
+    },
+    "typo3/cms": {
+      "cms-package-dir": "{$vendor-dir}/typo3/cms",
+      "web-dir": ".Build/Web"
+    }
+  },
+  "config": {
+    "sort-packages": true,
+    "vendor-dir": ".Build/vendor",
+    "allow-plugins": {
+      "typo3/cms-composer-installers": true,
+      "typo3/class-alias-loader": true
+    }
+  }
+}
