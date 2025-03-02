@@ -116,9 +116,6 @@ several dozen projects and each has its own CI/CD config inside the project's re
     ->set('public_urls', ['https://staging-t3base13.example.com'])
     ->set('deploy_path', '~/t3base13.example.com/staging');
    ```
-   
-   If you have some conflicts of packages between your root project and deployer.phar you can try
-   to use ``/vendor/sourcebroker/deployer-loader/autoload.php`` instead of ``vendor/autoload.php``.
 
 9. Push the changes to your repository and see the pipeline at your project.
 
