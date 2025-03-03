@@ -73,6 +73,7 @@ set('clear_paths', [
     '.gitattributes',
     '.githooks',
     '.gitignore',
+    '.gitlab-ci.yml',
     '.idea',
     '.php_cs',
     '.php-cs-fixer.php',
