@@ -2,6 +2,11 @@
 Changelog
 ---------
 
+0.2.0
+~~~~~
+
+1) [TASK] Drop dependency to ``typo3/cms-core``. Extend dependency to ``helhum/typo3-console``.
+
 0.1.0
 ~~~~~
 
