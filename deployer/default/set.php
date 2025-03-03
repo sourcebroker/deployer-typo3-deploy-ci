@@ -6,13 +6,7 @@ use Deployer\Exception\RunException;
 
 set('allow_anonymous_stats', false);
 
-set('writable_mode', 'skip');
-
 set('composer_channel', 2);
-
-set('default_timeout', 900);
-
-set('keep_releases', 5);
 
 set('log_files', 'var/log/typo3_*.log');
 

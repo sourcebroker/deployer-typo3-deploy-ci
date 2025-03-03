@@ -2,6 +2,12 @@
 Changelog
 ---------
 
+0.3.0
+-----
+
+1) [TASK][BREAKING] Remove ``writable_mode``, ``default_timeout``, ``keep_releases`` out of standard configuration. Use default values from
+   deployer or build you custom package to manage.
+
 0.2.0
 ~~~~~
 
