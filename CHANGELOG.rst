@@ -6,6 +6,7 @@ Changelog
 ~~~~~
 
 1) [TASK] Drop dependency to ``typo3/cms-core``. Extend dependency to ``helhum/typo3-console``.
+2) [TASK] Add support for ``vendor/bin/typo3cms``.
 
 0.1.0
 ~~~~~

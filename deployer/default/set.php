@@ -37,7 +37,7 @@ set('bin/typo3', function () use ($composerConfig) {
         return $composerConfig['config']['bin-dir'] . '/typo3';
     }
 
-    return 'vendor/bin/typo3';
+    return file_exists('./vendor/bin/typo3cms') ? 'vendor/bin/typo3cms' : 'vendor/bin/typo3';
 });
 
 set('shared_files', [
