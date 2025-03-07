@@ -2,6 +2,12 @@
 Changelog
 ---------
 
+0.4.1
+-----
+
+1) [TASK] Add "next" ddev command to bump version in gitlab CI file.
+
+
 0.4.0
 -----
 
