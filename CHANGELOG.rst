@@ -6,6 +6,8 @@ Changelog
 -----
 
 1) [TASK] Remove not existing "allow_anonymous_stats" setting. Optimise conditions for web_path and bin/typo3.
+2) [TASK][BREAKING] Move typo3:cache:warmup:system before typo3:extension:setup in deploy task. Remove deploy:clear_paths
+   as file:upload_build should already exclude files from clear_paths.
 
 0.3.0
 -----
