@@ -4,8 +4,6 @@ namespace Deployer;
 
 use Deployer\Exception\RunException;
 
-set('allow_anonymous_stats', false);
-
 set('composer_channel', 2);
 
 set('log_files', 'var/log/typo3_*.log');
@@ -19,7 +17,7 @@ if (file_exists('./composer.json')) {
 }
 
 set('web_path', function () use ($composerConfig) {
-    if ($composerConfig !== null && isset($composerConfig['extra']['typo3/cms']['web-dir'])) {
+    if (isset($composerConfig['extra']['typo3/cms']['web-dir'])) {
         return rtrim($composerConfig['extra']['typo3/cms']['web-dir'], '/') . '/';
     }
 
@@ -27,7 +25,7 @@ set('web_path', function () use ($composerConfig) {
 });
 
 set('bin/typo3', function () use ($composerConfig) {
-    if ($composerConfig !== null && isset($composerConfig['config']['bin-dir'])) {
+    if (isset($composerConfig['config']['bin-dir'])) {
         return $composerConfig['config']['bin-dir'] . '/typo3';
     }
 

@@ -2,6 +2,11 @@
 Changelog
 ---------
 
+0.4.0
+-----
+
+1) [TASK] Remove not existing "allow_anonymous_stats" setting. Optimise conditions for web_path and bin/typo3.
+
 0.3.0
 -----
 
