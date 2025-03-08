@@ -2,6 +2,11 @@
 Changelog
 ---------
 
+0.5.0
+-----
+
+1) [TASK] Bump ``sourcebroker/deployer-extended`` version.
+
 0.4.2
 -----
 
