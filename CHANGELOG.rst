@@ -2,6 +2,11 @@
 Changelog
 ---------
 
+0.4.2
+-----
+
+1) [TASK] Add REVISION so "dep releases [host]" can show the hash also.
+
 0.4.1
 -----
 
