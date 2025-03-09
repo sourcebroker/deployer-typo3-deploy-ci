@@ -16,7 +16,6 @@
   ],
   "require": {
     "deployer/deployer": "~7.0 || dev-master",
-    "helhum/typo3-console": "^6 || ^7 || ^8 || dev-master",
     "sourcebroker/deployer-extended": "^21 || dev-master",
     "sourcebroker/deployer-loader": "^5 || dev-master"
   },

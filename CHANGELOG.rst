@@ -2,6 +2,11 @@
 Changelog
 ---------
 
+0.7.0
+-----
+
+1) [TASK] Remove dependency to ``helhum/typo3-console``.
+
 0.6.0
 -----
 
