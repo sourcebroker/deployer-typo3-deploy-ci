@@ -7,6 +7,9 @@ Changelog
 
 1) [TASK] Rename ``deployer/default/typo3cms`` to ``deployer/default/typo3``
 2) [TASK] Add ``deploy:lock`` and ``deploy:unlock`` to ``deploy`` task. Add task comments.
+3) [TASK] Remove not used ``set('composer_channel', 2);``. It must be set now explicitly in project deploy.php
+    or custom deploy package and ``bin/composer`` override must be explicitly included with loader
+    ``'path' => 'vendor/sourcebroker/deployer-extended/includes/composer.php'``
 
 0.5.0
 -----

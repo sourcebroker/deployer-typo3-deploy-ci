@@ -4,8 +4,6 @@ namespace Deployer;
 
 use Deployer\Exception\RunException;
 
-set('composer_channel', 2);
-
 set('log_files', 'var/log/typo3_*.log');
 
 $composerConfig = null;
