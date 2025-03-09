@@ -2,8 +2,6 @@
 
 namespace Deployer;
 
-use Deployer\Exception\RunException;
-
 set('log_files', 'var/log/typo3_*.log');
 
 $composerConfig = null;
@@ -77,20 +75,3 @@ set('clear_paths', [
     'rector.php',
     'typoscript-lint.yml'
 ]);
-
-set('user', function () {
-    if (getenv('CI') !== false) {
-        $commitAuthor = getenv('GITLAB_USER_NAME');
-        return $commitAuthor ?: 'ci';
-    }
-
-    try {
-        return runLocally('git config --get user.name');
-    } catch (RunException $exception) {
-        try {
-            return runLocally('whoami');
-        } catch (RunException $exception) {
-            return 'no_user';
-        }
-    }
-});

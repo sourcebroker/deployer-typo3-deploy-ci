@@ -11,6 +11,7 @@ Changelog
     or custom deploy package and ``bin/composer`` override must be explicitly included with loader
     ``'path' => 'vendor/sourcebroker/deployer-extended/includes/composer.php'``
 4) [TASK] Fix ``bin/typo3`` not having fallback to ``typo3cms`` when ``$composerConfig['config']['bin-dir']`` is set.
+5) [TASK] Remove overwrite of ``user`` setting as Deployer default ``user`` applies now CI user name.
 
 0.5.0
 -----
