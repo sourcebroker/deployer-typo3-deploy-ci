@@ -2,6 +2,11 @@
 Changelog
 ---------
 
+0.6.0
+-----
+
+1) [TASK] Rename ``deployer/default/typo3cms`` to ``deployer/default/typo3``
+
 0.5.0
 -----
 
