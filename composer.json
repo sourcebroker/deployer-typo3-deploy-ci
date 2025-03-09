@@ -1,11 +1,12 @@
 {
   "name": "sourcebroker/deployer-typo3-deploy-ci",
-  "description": "CI for TYPO3 with Deployer",
+  "description": "Deploy for TYPO3 with Deployer at CI level",
   "license": "MIT",
   "keywords": [
     "TYPO3",
     "deployer",
-    "CI"
+    "CI",
+    "gitlab"
   ],
   "authors": [
     {
@@ -18,11 +19,6 @@
     "helhum/typo3-console": "^6 || ^7 || ^8 || dev-master",
     "sourcebroker/deployer-extended": "^21 || dev-master",
     "sourcebroker/deployer-loader": "^5 || dev-master"
-  },
-  "autoload": {
-    "psr-4": {
-      "SourceBroker\\DeployerTypo3DeployCi\\": "src/"
-    }
   },
   "extra": {
     "typo3/cms": {
