@@ -23,8 +23,9 @@ set('web_path', function () use ($composerConfig) {
 });
 
 set('bin/typo3', function () use ($composerConfig) {
-    if (isset($composerConfig['config']['bin-dir'])) {
-        return $composerConfig['config']['bin-dir'] . '/typo3';
+    $binDir = $composerConfig['config']['bin-dir'] ?? null;
+    if ($binDir) {
+        return file_exists($binDir . '/typo3cms') ? $binDir . '/typo3cms' : $binDir . '/typo3';
     }
 
     return file_exists('./vendor/bin/typo3cms') ? 'vendor/bin/typo3cms' : 'vendor/bin/typo3';
