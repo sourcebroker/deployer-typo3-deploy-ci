@@ -6,6 +6,7 @@ Changelog
 -----
 
 1) [TASK] Rename ``deployer/default/typo3cms`` to ``deployer/default/typo3``
+2) [TASK] Add ``deploy:lock`` and ``deploy:unlock`` to ``deploy`` task. Add task comments.
 
 0.5.0
 -----
