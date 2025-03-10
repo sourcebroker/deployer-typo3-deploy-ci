@@ -2,6 +2,12 @@
 Changelog
 ---------
 
+main
+-----
+
+1) [BUGFIX] Fix remote inclusions.
+2) [TASK] Refactor ``next`` ddev command.
+
 0.8.0
 -----
 
