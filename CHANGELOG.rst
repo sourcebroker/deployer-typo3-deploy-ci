@@ -7,6 +7,7 @@ main
 
 1) [BUGFIX] Fix remote inclusions.
 2) [TASK] Refactor ``next`` ddev command.
+3) [TASK][BREAKING] Rename main.yml file.
 
 0.8.0
 -----
