@@ -8,13 +8,10 @@ task('deploy-ci', [
     'deploy:info',
 
     // Standard Deployer task.
-    'deploy:check_remote',
+    'deploy:setup',
 
     // Standard Deployer task.
     'deploy:lock',
-
-    // Standard Deployer task.
-    'deploy:setup',
 
     // Standard Deployer task.
     'deploy:release',
@@ -28,10 +25,10 @@ task('deploy-ci', [
     // Standard Deployer task.
     'deploy:writable',
 
-    // TYPO3 special task: flush cache for pages.
+    // TYPO3 special task: warm up system cache
     'typo3:cache:warmup:system',
 
-    // TYPO3 special task: flush cache for pages.
+    // TYPO3 special task: set up extension with database update schema
     'typo3:extension:setup',
 
     // Standard Deployer task.

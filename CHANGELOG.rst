@@ -2,6 +2,12 @@
 Changelog
 ---------
 
+0.8.0
+-----
+
+1) [TASK][BREAKING]  Remove ``deploy:check_remote`` task to be more compatible with default Deployer settings.
+   Fix order of ``deploy:setup``.
+
 0.7.0
 -----
 
