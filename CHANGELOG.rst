@@ -2,7 +2,7 @@
 Changelog
 ---------
 
-main
+0.9.0
 -----
 
 1) [BUGFIX] Fix remote inclusions.
