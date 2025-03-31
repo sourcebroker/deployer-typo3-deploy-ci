@@ -107,14 +107,16 @@ several dozen projects and each has its own CI/CD config inside the project's re
    host('production')
        ->setHostname('vm-dev.example.com')
        ->setRemoteUser('project1')
+       ->set('bin/php', '/usr/bin/php8.4')
        ->set('public_urls', ['https://t3base13.example.com'])
        ->set('deploy_path', '~/t3base13.example.com/production');
    
    host('staging')
-    ->setHostname('vm-dev.example.com')
-    ->setRemoteUser('project1')
-    ->set('public_urls', ['https://staging-t3base13.example.com'])
-    ->set('deploy_path', '~/t3base13.example.com/staging');
+       ->setHostname('vm-dev.example.com')
+       ->setRemoteUser('project1')
+       ->set('bin/php', '/usr/bin/php8.4')
+       ->set('public_urls', ['https://staging-t3base13.example.com'])
+       ->set('deploy_path', '~/t3base13.example.com/staging');
    ```
 
 9. Push the changes to your repository and see the pipeline at your project.
