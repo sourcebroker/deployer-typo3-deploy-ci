@@ -2,6 +2,12 @@
 Changelog
 ---------
 
+0.10.0
+------
+
+1) [TASK][BREAKING] Remove dependency to ``sourcebroker/deployer-extended``. Add to project the only task ``file_upload_build``
+   needed from ``sourcebroker/deployer-extended``.
+
 0.9.0
 -----
 
