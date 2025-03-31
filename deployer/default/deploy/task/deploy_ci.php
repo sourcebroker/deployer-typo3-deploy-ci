@@ -16,7 +16,7 @@ task('deploy-ci', [
     // Standard Deployer task.
     'deploy:release',
 
-    // Standard Deployer task.
+    // deployer-typo3-deploy-ci task.
     'file:upload_build',
 
     // Standard Deployer task.
@@ -25,24 +25,16 @@ task('deploy-ci', [
     // Standard Deployer task.
     'deploy:writable',
 
-    // TYPO3 special task: warm up system cache
+    // deployer-typo3-deploy-ci task.
     'typo3:cache:warmup:system',
 
-    // TYPO3 special task: set up extension with database update schema
+    // deployer-typo3-deploy-ci task.
     'typo3:extension:setup',
 
     // Standard Deployer task.
     'deploy:symlink',
 
-    // sourcebroker/deployer-extended special task.
-    // read more on https://github.com/sourcebroker/deployer-extended#cache-clear-php-cli
-    'cache:clear_php_cli',
-
-    // sourcebroker/deployer-extended special task.
-    // read more on https://github.com/sourcebroker/deployer-extended#cache-clear-php-http
-    'cache:clear_php_http',
-
-    // TYPO3 special task: flush cache for pages.
+    // deployer-typo3-deploy-ci task.
     'typo3:cache:flush:pages',
 
     // Standard Deployer task.

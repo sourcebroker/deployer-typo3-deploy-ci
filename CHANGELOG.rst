@@ -7,6 +7,7 @@ Changelog
 
 1) [TASK][BREAKING] Remove dependency to ``sourcebroker/deployer-extended``. Add to project the only task ``file_upload_build``
    needed from ``sourcebroker/deployer-extended``.
+2) [TASK][BREAKING] Remove ``cache:clear_php_http``, ``cache:clear_php_cli``. They should be part of higher package.
 
 0.9.0
 -----
