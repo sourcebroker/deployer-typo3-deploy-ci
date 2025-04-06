@@ -100,10 +100,13 @@ several dozen projects and each has its own CI/CD config inside the project's re
    namespace Deployer;
    
    require_once(__DIR__ . '/vendor/autoload.php');
+   
    new \SourceBroker\DeployerLoader\Loader([
      ['get' => 'sourcebroker/deployer-typo3-deploy-ci'],
    ]);
-   
+
+   task('deploy:writable')->disable(); // Disable deploy:writable task if httpd user is the same as ssh user.
+
    host('production')
        ->setHostname('vm-dev.example.com')
        ->setRemoteUser('project1')
