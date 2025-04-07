@@ -18,18 +18,8 @@
     "deployer/deployer": "~7.0 || dev-master",
     "sourcebroker/deployer-loader": "^5 || dev-master"
   },
-  "extra": {
-    "typo3/cms": {
-      "cms-package-dir": "{$vendor-dir}/typo3/cms",
-      "web-dir": ".Build/Web"
-    }
-  },
   "config": {
-    "sort-packages": true,
-    "vendor-dir": ".Build/vendor",
-    "allow-plugins": {
-      "typo3/cms-composer-installers": true,
-      "typo3/class-alias-loader": true
-    }
-  }
+    "sort-packages": true
+  },
+  "prefer-stable": true
 }

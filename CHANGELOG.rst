@@ -2,6 +2,11 @@
 Changelog
 ---------
 
+main
+----
+
+1) [TASK] Cleanup composer.json.
+
 0.11.0
 -----
 
