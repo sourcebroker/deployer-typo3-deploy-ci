@@ -2,10 +2,11 @@
 Changelog
 ---------
 
-main
-----
+1.0.0
+-----
 
 1) [TASK] Cleanup composer.json.
+2) [TASK] Release first stable version.
 
 0.11.0
 -----
