@@ -2,6 +2,11 @@
 Changelog
 ---------
 
+1.0.1
+-----
+
+1) [BUGFIX] Fix remote include url.
+
 1.0.0
 -----
 
