@@ -1,4 +1,13 @@
-# deployer-typo3-deploy-ci
+deployer-typo3-deploy-ci
+========================
+
+      .. image:: http://img.shields.io/packagist/v/sourcebroker/deployer-typo3-deploy-ci.svg?style=flat
+         :target: https://packagist.org/packages/sourcebroker/deployer-typo3-deploy-ci
+
+      .. image:: https://img.shields.io/badge/license-MIT-blue.svg?style=flat
+         :target: https://packagist.org/packages/sourcebroker/deployer-typo3-deploy-ci
+
+.. contents:: :local:
 
 ## Contents
 
