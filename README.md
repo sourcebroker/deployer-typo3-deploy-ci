@@ -1,13 +1,7 @@
 deployer-typo3-deploy-ci
 ========================
 
-      .. image:: http://img.shields.io/packagist/v/sourcebroker/deployer-typo3-deploy-ci.svg?style=flat
-         :target: https://packagist.org/packages/sourcebroker/deployer-typo3-deploy-ci
-
-      .. image:: https://img.shields.io/badge/license-MIT-blue.svg?style=flat
-         :target: https://packagist.org/packages/sourcebroker/deployer-typo3-deploy-ci
-
-.. contents:: :local:
+[![Packagist](http://img.shields.io/packagist/v/sourcebroker/deployer-typo3-deploy-ci.svg?style=flat)](https://packagist.org/packages/sourcebroker/deployer-typo3-deploy-ci) [![License](https://img.shields.io/badge/license-MIT-blue.svg?style=flat)](https://packagist.org/packages/sourcebroker/deployer-typo3-deploy-ci)
 
 ## Contents
 
@@ -31,11 +25,11 @@ repositories.**
 You can use this repository in several possible ways:
 
 1. Reference it from your project with "include remote" and overwrite at your project's `gitlab-ci.yml`.
-2. Reference it from your project with "include remote", then overwrite it with "include remote" from your own special 
+2. Reference it from your project with "include remote", then overwrite it with "include remote" from your own special
    repo and finally overwrite edge cases at the project's `gitlab-ci.yml`.
 
-The worst possible scenario you can use is to copy all CI/CD files to your project repository and maintain them there 
-for each project. This is not recommended as it will be hard for you to maintain and upgrade in the future if you have 
+The worst possible scenario you can use is to copy all CI/CD files to your project repository and maintain them there
+for each project. This is not recommended as it will be hard for you to maintain and upgrade in the future if you have
 several dozen projects and each has its own CI/CD config inside the project's repo.
 
 ## Installation
@@ -59,11 +53,11 @@ several dozen projects and each has its own CI/CD config inside the project's re
      DEPLOYER_SELECTOR_FOR_TAG: production
    ```
 
-   Adapt the tag version in the include remote URL. This version should be the same as the version of `deployer-typo3-deploy-ci` 
-   installed in your project in step 1 with composer. Use: `composer show | grep 'sourcebroker/deployer-typo3-deploy-ci'` 
+   Adapt the tag version in the include remote URL. This version should be the same as the version of `deployer-typo3-deploy-ci`
+   installed in your project in step 1 with composer. Use: `composer show | grep 'sourcebroker/deployer-typo3-deploy-ci'`
    to see the version of the `deployer-typo3-deploy-ci` installed in your project.
 
-   If after pushing the pipeline does not start at all, check the `TEST_TRIGGER_BY_CI_COMMIT_BRANCH` value. The name 
+   If after pushing the pipeline does not start at all, check the `TEST_TRIGGER_BY_CI_COMMIT_BRANCH` value. The name
    of the branch you push to must be inside the pregmatch of `TEST_TRIGGER_BY_CI_COMMIT_BRANCH`.
 
 3. **Backend test**.
@@ -78,7 +72,7 @@ several dozen projects and each has its own CI/CD config inside the project's re
    ```sh
    cd assets && npm ci && npm run test
    ```
-   This is probably a part you would like to overwrite as this is very custom and not normalized in the TYPO3 world. 
+   This is probably a part you would like to overwrite as this is very custom and not normalized in the TYPO3 world.
    Just change `FRONTEND_COMMAND_TEST` to your needs in your `gitlab-ci.yml`.
 
 5. **Build the backend**.
@@ -93,12 +87,12 @@ several dozen projects and each has its own CI/CD config inside the project's re
    ```sh
    cd assets && npm ci && npm run production
    ```
-   You can either overwrite it in your `gitlab-ci.yml`. If you modify the `FRONTEND_COMMAND_TEST` command, remember 
+   You can either overwrite it in your `gitlab-ci.yml`. If you modify the `FRONTEND_COMMAND_TEST` command, remember
    to also modify the `FRONTEND_FOLDER_BUILD_1`.
 
 7. **Deploy**.
    Add the `SSH_PRIVATE_KEY` variable to your GitLab project CI/CD settings as a "mask variable". This variable holds
-   the private key for the user that will deploy the project from the deployer level. Prepare this `SSH_PRIVATE_KEY` 
+   the private key for the user that will deploy the project from the deployer level. Prepare this `SSH_PRIVATE_KEY`
    with the following command: `cat privatekey | base64 -w0` and on mac: `cat privatekey | base64 -b0`
 
 8. Define your deployer configuration in your project's `deploy.php` file. Example of a real working configuration:
@@ -152,43 +146,43 @@ several dozen projects and each has its own CI/CD config inside the project's re
 
 - **Variables** (`ci/provider/gitlab/config/100-variables.yaml`):
 
-   - `PHP` PHP version for backend test and build.
-   - `NODE` PHP version for frontend test and build.
-   - `TEST_TRIGGER_BY_CI_COMMIT_BRANCH` Regexp for branches that trigger the pipeline for test only.
-   - `TEST_TRIGGER_BY_CI_COMMIT_TAG` Regexp for tags that trigger the pipeline for test only.
-   - `DEPLOY_TRIGGER_BY_CI_COMMIT_TAG` Regexp for tags that trigger deployment.
+    - `PHP` PHP version for backend test and build.
+    - `NODE` PHP version for frontend test and build.
+    - `TEST_TRIGGER_BY_CI_COMMIT_BRANCH` Regexp for branches that trigger the pipeline for test only.
+    - `TEST_TRIGGER_BY_CI_COMMIT_TAG` Regexp for tags that trigger the pipeline for test only.
+    - `DEPLOY_TRIGGER_BY_CI_COMMIT_TAG` Regexp for tags that trigger deployment.
 
 - **Backend Variables** (`ci/provider/gitlab/config/110-variables-backend.yaml`):
 
-   - `BACKEND_COMMAND_TEST` Command to run backend tests.
-   - `BACKEND_COMMAND_BUILD` Command to build the backend.
-   - `BACKEND_IMAGE` Docker image for the backend.
-   - `BACKEND_FOLDER_BUILD_*` Paths for backend build artifacts.
+    - `BACKEND_COMMAND_TEST` Command to run backend tests.
+    - `BACKEND_COMMAND_BUILD` Command to build the backend.
+    - `BACKEND_IMAGE` Docker image for the backend.
+    - `BACKEND_FOLDER_BUILD_*` Paths for backend build artifacts.
 
 - **Frontend Variables** (`ci/provider/gitlab/config/120-variables-frontend.yaml`):
 
-   - `FRONTEND_COMMAND_TESTS` Command to run frontend tests.
-   - `FRONTEND_COMMAND_BUILD` Command to build the frontend.
-   - `FRONTEND_IMAGE` Docker image for the frontend.
-   - `FRONTEND_FOLDER_BUILD_*` Paths for frontend build artifacts.
+    - `FRONTEND_COMMAND_TESTS` Command to run frontend tests.
+    - `FRONTEND_COMMAND_BUILD` Command to build the frontend.
+    - `FRONTEND_IMAGE` Docker image for the frontend.
+    - `FRONTEND_FOLDER_BUILD_*` Paths for frontend build artifacts.
 
 - **GitLab Variables** (`ci/provider/gitlab/config/130-variables-gitlab.yaml`):
 
-   - `FF_USE_FASTZIP` Enable fast zip for artifacts.
-   - `ARTIFACT_COMPRESSION_LEVEL` Compression level for artifacts.
-   - `CACHE_COMPRESSION_LEVEL` Compression level for cache.
-   - `TRANSFER_METER_FREQUENCY` Frequency of transfer meter updates.
-   - `DOCKER_DRIVER` Docker driver to use.
-   - `DOCKER_BUILDKIT` Enable Docker BuildKit.
-   - `BUILDKIT_INLINE_CACHE` Enable inline cache for BuildKit.
-   - `COMPOSE_DOCKER_CLI_BUILD` Enable Docker CLI build for Compose.
+    - `FF_USE_FASTZIP` Enable fast zip for artifacts.
+    - `ARTIFACT_COMPRESSION_LEVEL` Compression level for artifacts.
+    - `CACHE_COMPRESSION_LEVEL` Compression level for cache.
+    - `TRANSFER_METER_FREQUENCY` Frequency of transfer meter updates.
+    - `DOCKER_DRIVER` Docker driver to use.
+    - `DOCKER_BUILDKIT` Enable Docker BuildKit.
+    - `BUILDKIT_INLINE_CACHE` Enable inline cache for BuildKit.
+    - `COMPOSE_DOCKER_CLI_BUILD` Enable Docker CLI build for Compose.
 
 - **Deployer**
- 
-   - `DEPLOYER_SELECTOR_FOR_BRANCH` Mapping of GitLab branch to Deployer selector. It is a collection of `branch:deployer_selector`
-     pairs separated by commas. Example: `develop:staging,main:production`.
-   - `DEPLOYER_SELECTOR_FOR_TAG` Deployer selector to be used when tag is pushed. Example: `production`.
-   - `DEPLOYER_OPTIONS` Additional options for Deployer. 
+
+    - `DEPLOYER_SELECTOR_FOR_BRANCH` Mapping of GitLab branch to Deployer selector. It is a collection of `branch:deployer_selector`
+      pairs separated by commas. Example: `develop:staging,main:production`.
+    - `DEPLOYER_SELECTOR_FOR_TAG` Deployer selector to be used when tag is pushed. Example: `production`.
+    - `DEPLOYER_OPTIONS` Additional options for Deployer.
 
 ## Deployer Tasks
 
@@ -211,7 +205,7 @@ The project uses Deployer for deployment tasks. The configuration files are loca
 
     - `deploy:upload_build` Uploads the build to the server.
     - `deploy-ci` Main deployment task for continuous integration.
-  
+
 ## Own Repo for Overwrites
 
 You may be interested in creating your own repo with values for overwriting variables of `sourcebroker/deployer-typo3-deploy-ci`.
