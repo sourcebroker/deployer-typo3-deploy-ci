@@ -2,6 +2,11 @@
 Changelog
 ---------
 
+1.0.2
+-----
+
+1) [BUGFIX] Extend expire_in from 15min to 12min to prevent cases when artifacts are later not accessible at deploy stage.
+
 1.0.1
 -----
 
