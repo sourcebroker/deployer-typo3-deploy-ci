@@ -2,6 +2,12 @@
 Changelog
 ---------
 
+2.0.0
+-----
+
+1) [TASK][BREAKING] Rename task `deploy-ci` to task `deploy`.
+
+
 1.0.2
 -----
 

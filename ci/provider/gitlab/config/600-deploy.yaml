@@ -47,7 +47,7 @@ deploy:
       echo "DEPLOYER_SELECTOR: $DEPLOYER_SELECTOR"
       cd ${CI_BUILDS_DIR} && mkdir -p deployer && cd deployer && composer require ${DEPLOYER_INSTALL:-deployer/deployer:^7.5} --verbose --prefer-dist --no-progress --no-interaction --optimize-autoloader
       cd ${CI_PROJECT_DIR} && echo ${CI_COMMIT_SHA} > REVISION
-      cd ${CI_PROJECT_DIR} && ${CI_BUILDS_DIR}/deployer/vendor/bin/dep deploy-ci ${DEPLOYER_BT} ${DEPLOYER_OPTIONS} ${DEPLOYER_SELECTOR} -vv
+      cd ${CI_PROJECT_DIR} && ${CI_BUILDS_DIR}/deployer/vendor/bin/dep ${DEPLOYER_DEPLOY_TASK:-deploy} ${DEPLOYER_BT} ${DEPLOYER_OPTIONS} ${DEPLOYER_SELECTOR} -vv
   rules:
     - if: $CI_COMMIT_BRANCH && $CI_COMMIT_BRANCH =~ $DEPLOY_TRIGGER_BY_CI_COMMIT_BRANCH
     - if: $CI_COMMIT_TAG && $CI_COMMIT_TAG =~ $DEPLOY_TRIGGER_BY_CI_COMMIT_TAG
