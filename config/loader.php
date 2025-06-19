@@ -6,5 +6,10 @@ return [
     ],
     [
         'package' => 'sourcebroker/deployer-typo3-deploy-ci',
+        'conflict' => [
+            'package' => [
+                'sourcebroker/deployer-typo3-deploy'
+            ]
+        ]
     ],
 ];
