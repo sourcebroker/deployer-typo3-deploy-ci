@@ -7,7 +7,7 @@ Changelog
 
 1) [TASK][BREAKING] Rename task `deploy-ci` to task `deploy`.
 2) [TASK] Configure loader to throw error when `sourcebroker/deployer-typo3-deploy` loaded together.
-3) [TASK] Add task checking if the deploy is running in CI.
+3) [TASK][BREAKING] Add task checking if the deploy is running in CI.
 
 1.0.2
 -----
