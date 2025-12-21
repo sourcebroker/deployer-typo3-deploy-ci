@@ -43,14 +43,14 @@ several dozen projects and each has its own CI/CD config inside the project's re
 
    ```yaml
    include:
-     - remote: https://raw.githubusercontent.com/sourcebroker/deployer-typo3-deploy-ci/0.0.1/ci/provider/gitlab/main.yml
+     - remote: https://raw.githubusercontent.com/sourcebroker/deployer-typo3-deploy-ci/2.0.0/ci/provider/gitlab/main.yaml
 
    variables:
      PHP: '8.2'
      NODE: '20'
      DEPLOY_TRIGGER_BY_CI_COMMIT_BRANCH: /^(develop|main)$/
-     DEPLOYER_SELECTOR_FOR_BRANCH: develop:staging,main:production
-     DEPLOYER_SELECTOR_FOR_TAG: production
+     DEPLOYER_SELECTOR_FOR_BRANCH: develop:staging,main:preprod
+     DEPLOYER_SELECTOR_FOR_TAG: prod
    ```
 
    Adapt the tag version in the include remote URL. This version should be the same as the version of `deployer-typo3-deploy-ci`
@@ -85,7 +85,7 @@ several dozen projects and each has its own CI/CD config inside the project's re
 6. **Build the frontend**.
    The command for frontend build is defined in `FRONTEND_COMMAND_BUILD` and has the value:
    ```sh
-   cd assets && npm ci && npm run production
+   cd assets && npm ci && npm run prod
    ```
    You can either overwrite it in your `gitlab-ci.yml`. If you modify the `FRONTEND_COMMAND_TEST` command, remember
    to also modify the `FRONTEND_FOLDER_BUILD_1`.
@@ -110,12 +110,19 @@ several dozen projects and each has its own CI/CD config inside the project's re
 
    task('deploy:writable')->disable(); // Disable deploy:writable task if httpd user is the same as ssh user.
 
-   host('production')
+   host('prod')
        ->setHostname('vm-dev.example.com')
        ->setRemoteUser('project1')
        ->set('bin/php', '/usr/bin/php8.4')
        ->set('public_urls', ['https://t3base13.example.com'])
-       ->set('deploy_path', '~/t3base13.example.com/production');
+       ->set('deploy_path', '~/t3base13.example.com/prod');
+   
+   host('preprod')
+       ->setHostname('vm-dev.example.com')
+       ->setRemoteUser('project1')
+       ->set('bin/php', '/usr/bin/php8.4')
+       ->set('public_urls', ['https://preprod-t3base13.example.com'])
+       ->set('deploy_path', '~/t3base13.example.com/preprod');
    
    host('staging')
        ->setHostname('vm-dev.example.com')
@@ -180,8 +187,8 @@ several dozen projects and each has its own CI/CD config inside the project's re
 - **Deployer**
 
     - `DEPLOYER_SELECTOR_FOR_BRANCH` Mapping of GitLab branch to Deployer selector. It is a collection of `branch:deployer_selector`
-      pairs separated by commas. Example: `develop:staging,main:production`.
-    - `DEPLOYER_SELECTOR_FOR_TAG` Deployer selector to be used when tag is pushed. Example: `production`.
+      pairs separated by commas. Example: `develop:staging,main:preprod`.
+    - `DEPLOYER_SELECTOR_FOR_TAG` Deployer selector to be used when tag is pushed. Example: `prod`.
     - `DEPLOYER_OPTIONS` Additional options for Deployer.
 
 ## Deployer Tasks
@@ -216,9 +223,30 @@ Then you should add your remote inclusion in `gitlab-ci.yml`. Example:
 
 ```yaml
 include:
-  - remote: https://raw.githubusercontent.com/sourcebroker/deployer-typo3-deploy-ci/0.0.1/ci/provider/gitlab/main.yml
-  - remote: https://raw.githubusercontent.com/my_company/deployer-typo3-deploy-ci/1.0.0/ci/provider/gitlab/overrides.yml
+  - remote: https://raw.githubusercontent.com/sourcebroker/deployer-typo3-deploy-ci/2.0.0/ci/provider/gitlab/main.yaml
+  - remote: https://raw.githubusercontent.com/my_company/deployer-typo3-deploy-ci/1.0.0/ci/provider/gitlab/overrides.yaml
 ```
+
+## FAQ
+
+1. How to disable frontend or backend part?
+
+    Example when you would like to have only backend:
+
+    ```yaml
+    deploy:
+      needs:
+        - job: test-backend
+        - job: build-backend
+    
+    test-frontend:
+      rules:
+        - when: never
+    
+    build-frontend:
+      rules:
+        - when: never
+    ```
 
 ## Example Configs
 
@@ -226,8 +254,8 @@ include:
 
 ```yaml
 FRONTEND_COMMAND_BUILD: >
-  cd ${CI_PROJECT_DIR}/assets-1 && npm ci && npm run production;
-  cd ${CI_PROJECT_DIR}/assets-2 && npm ci && npm run production;
+  cd ${CI_PROJECT_DIR}/assets-1 && npm ci && npm run prod;
+  cd ${CI_PROJECT_DIR}/assets-2 && npm ci && npm run prod;
 FRONTEND_FOLDER_BUILD_1: public/assets-1/frontend/build
 FRONTEND_FOLDER_BUILD_2: public/assets-2/frontend/build
 ```
@@ -242,7 +270,7 @@ build-frontend-assets3:
   retry:
     max: 2
   script:
-    - bash -c "cd vendor/my_company/my_ext/Resources/Private/Assets && npm ci && npm run production"
+    - bash -c "cd vendor/my_company/my_ext/Resources/Private/Assets && npm ci && npm run prod"
   artifacts:
     paths:
       - public/assets/frontend/build-assets3
