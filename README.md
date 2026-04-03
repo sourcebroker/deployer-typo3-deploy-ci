@@ -95,6 +95,20 @@ several dozen projects and each has its own CI/CD config inside the project's re
    the private key for the user that will deploy the project from the deployer level. Prepare this `SSH_PRIVATE_KEY`
    with the following command: `cat privatekey | base64 -w0` and on mac: `cat privatekey | base64 -b0`
 
+   If your SSH setup differs from the default, set `DEPLOY_SSH_SETUP` to replace the entire SSH setup block
+   (agent start, key loading, `~/.ssh` creation, and ssh config). Example using a GitLab **File** variable —
+   set `SSH_PRIVATE_KEY` type to "File" in GitLab CI/CD settings and paste the raw private key as the value;
+   GitLab will write it to a temporary file and pass the path as `$SSH_PRIVATE_KEY`:
+
+   ```yaml
+   variables:
+     DEPLOY_SSH_SETUP: |
+       eval $(ssh-agent -s)
+       ssh-add "$SSH_PRIVATE_KEY"
+       mkdir -p ~/.ssh && chmod 700 ~/.ssh
+       echo -e "Host *\n\tStrictHostKeyChecking no\n\tUserKnownHostsFile /dev/null" >> ~/.ssh/config
+   ```
+
 8. Define your deployer configuration in your project's `deploy.php` file. Example of a real working configuration:
 
    ```php

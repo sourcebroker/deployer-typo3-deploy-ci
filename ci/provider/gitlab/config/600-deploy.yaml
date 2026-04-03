@@ -9,11 +9,16 @@ deploy:
   before_script:
     - if [ -n "$DEPLOY_BEFORE_SCRIPT_START" ]; then eval "$DEPLOY_BEFORE_SCRIPT_START"; fi
     - apk add rsync --update
-    - eval $(ssh-agent -s)
-    # SSH_PRIVATE_KEY must be base64 encoded before added to gitlab variable as 'mask variable': "cat privatekey | base64 -w0" (on mac "cat privatekey | base64 -b0")
-    - echo -e "$SSH_PRIVATE_KEY" | base64 -d | ssh-add - > /dev/null
-    - mkdir -p ~/.ssh && chmod 700 ~/.ssh
-    - echo -e "Host *\n\tStrictHostKeyChecking no\n\tUserKnownHostsFile /dev/null" >> ~/.ssh/config
+    - |
+      if [ -n "$DEPLOY_SSH_SETUP" ]; then
+        eval "$DEPLOY_SSH_SETUP"
+      else
+        eval $(ssh-agent -s)
+        # SSH_PRIVATE_KEY must be base64 encoded before added to gitlab variable as 'mask variable': "cat privatekey | base64 -w0" (on mac "cat privatekey | base64 -b0")
+        echo -e "$SSH_PRIVATE_KEY" | base64 -d | ssh-add - > /dev/null
+        mkdir -p ~/.ssh && chmod 700 ~/.ssh
+        echo -e "Host *\n\tStrictHostKeyChecking no\n\tUserKnownHostsFile /dev/null" >> ~/.ssh/config
+      fi
     - if [ -n "$DEPLOY_BEFORE_SCRIPT_END" ]; then eval "$DEPLOY_BEFORE_SCRIPT_END"; fi
   image:
     name: composer:latest

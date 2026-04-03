@@ -6,6 +6,7 @@ Changelog
 -----
 1) [TASK][FEATURE][BREAKING] Add support for exclude list in artifact. Exclude .git folder by default.
 2) [TASK][FEATURE] Add hooks to extend deploy job.
+3) [TASK][FEATURE] Add ``DEPLOY_SSH_SETUP`` variable to replace the entire SSH setup block (ssh-agent start, key loading, ``~/.ssh`` creation, ssh config).
 
 2.0.0
 -----
