@@ -4,11 +4,17 @@ variables:
 
   BACKEND_IMAGE: thecodingmachine/php:${PHP}-v4-cli-node${NODE}
 
-  BACKEND_FOLDER_BUILD_1: ./
+  BACKEND_FOLDER_BUILD_1: './'
   BACKEND_FOLDER_BUILD_2: ''
   BACKEND_FOLDER_BUILD_3: ''
   BACKEND_FOLDER_BUILD_4: ''
   BACKEND_FOLDER_BUILD_5: ''
+
+  BACKEND_FOLDER_BUILD_EXCLUDE_1: '.git'
+  BACKEND_FOLDER_BUILD_EXCLUDE_2: '.git/**'
+  BACKEND_FOLDER_BUILD_EXCLUDE_3: ''
+  BACKEND_FOLDER_BUILD_EXCLUDE_4: ''
+  BACKEND_FOLDER_BUILD_EXCLUDE_5: ''
 
   # variable to retry not supported yet https://gitlab.com/gitlab-org/gitlab/-/merge_requests/98100
   # RETRY_TEST_BACKEND: 2
