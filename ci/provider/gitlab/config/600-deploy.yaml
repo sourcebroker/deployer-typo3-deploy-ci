@@ -8,7 +8,18 @@ deploy:
     - job: build-backend
   before_script:
     - if [ -n "$DEPLOY_BEFORE_SCRIPT_START" ]; then eval "$DEPLOY_BEFORE_SCRIPT_START"; fi
-    - apk add rsync --update
+    - |
+      if [ -z "$DEPLOY_RSYNC_SKIP" ] && ! command -v rsync > /dev/null 2>&1; then
+        if command -v apk > /dev/null 2>&1; then
+          apk add rsync --update
+        elif command -v apt-get > /dev/null 2>&1; then
+          apt-get update && apt-get install -y rsync
+        elif command -v dnf > /dev/null 2>&1; then
+          dnf install -y rsync
+        elif command -v yum > /dev/null 2>&1; then
+          yum install -y rsync
+        fi
+      fi
     - |
       if [ -n "$DEPLOY_SSH_SETUP" ]; then
         eval "$DEPLOY_SSH_SETUP"
