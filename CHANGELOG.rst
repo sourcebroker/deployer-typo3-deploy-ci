@@ -5,6 +5,7 @@ Changelog
 3.0.0
 -----
 1) [TASK][FEATURE][BREAKING] Add support for exclude list in artifact. Exclude .git folder by default.
+2) [TASK][FEATURE] Add hooks to extend deploy job.
 
 2.0.0
 -----

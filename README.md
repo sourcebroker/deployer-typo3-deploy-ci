@@ -191,6 +191,40 @@ several dozen projects and each has its own CI/CD config inside the project's re
     - `DEPLOYER_SELECTOR_FOR_TAG` Deployer selector to be used when tag is pushed. Example: `prod`.
     - `DEPLOYER_OPTIONS` Additional options for Deployer.
 
+- **Deploy job hooks** (`ci/provider/gitlab/config/600-deploy.yaml`):
+
+    The `deploy` job exposes hook variables that let you inject shell commands at key points
+    without rewriting the entire job.
+
+    `before_script` hooks (run around the default SSH setup):
+    - `DEPLOY_BEFORE_SCRIPT_START` Shell command(s) executed **before** SSH setup (rsync install, ssh-agent, key loading).
+    - `DEPLOY_BEFORE_SCRIPT_END` Shell command(s) executed **after** SSH setup.
+
+    `script` hooks (run around the deployer invocation):
+    - `DEPLOY_SCRIPT_START` Shell command(s) executed **before** `dep deploy`.
+    - `DEPLOY_SCRIPT_END` Shell command(s) executed **after** `dep deploy` completes.
+
+    Example — send a Slack notification after deploy:
+
+    ```yaml
+    variables:
+      DEPLOY_SCRIPT_END: 'curl -X POST -d "payload={\"text\":\"Deployed!\"}" $SLACK_WEBHOOK_URL'
+    ```
+
+    **Full override**: To replace the entire `before_script` or `script` (e.g. you use a
+    different transport and don't need the SSH setup at all), redefine the key in your
+    project's `.gitlab-ci.yml`. GitLab CI will replace the inherited block entirely:
+
+    ```yaml
+    include:
+      - remote: https://raw.githubusercontent.com/sourcebroker/deployer-typo3-deploy-ci/2.0.0/ci/provider/gitlab/main.yaml
+
+    deploy:
+      before_script:
+        - apk add rsync --update
+        - my-custom-ssh-setup.sh
+    ```
+
 ## Deployer Tasks
 
 The project uses Deployer for deployment tasks. The configuration files are located in the `deployer/default` directory.
