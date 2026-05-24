@@ -86,11 +86,10 @@ if git rev-parse "$NEXT_TAG" >/dev/null 2>&1; then
     exit 1
 fi
 
-
 # Update files with the new version
 perl -pi -e "s/[0-9]+\.[0-9]+\.[0-9]+/$NEXT_TAG/g" ./ci/provider/gitlab/main.yaml
 perl -pi -e "s/main\\n/$NEXT_TAG\\n/g" ./CHANGELOG.rst
 
 # Prepare command to tag the new version
 echo "Copy the command below and run it to tag the new version:"
-echo "git add ci/provider/gitlab/main.yml CHANGELOG.rst && git commit -m 'Tag version $NEXT_TAG' && git tag -a '$NEXT_TAG' -m '$NEXT_TAG' -s && git push origin $DEFAULT_BRANCH --tags"
+echo "git add ci/provider/gitlab/main.yaml CHANGELOG.rst && git commit -m 'Tag version $NEXT_TAG' && git tag -a '$NEXT_TAG' -m '$NEXT_TAG' -s && git push origin $DEFAULT_BRANCH --tags"

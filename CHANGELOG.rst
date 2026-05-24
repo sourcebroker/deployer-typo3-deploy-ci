@@ -6,7 +6,7 @@ Changelog
 -----
 1) [TASK][FEATURE][BREAKING] Add support for exclude list in artifact. Exclude .git folder by default.
 2) [TASK][FEATURE] Add hooks to extend deploy job.
-3) [TASK][FEATURE] Add ``DEPLOY_SSH_SETUP`` variable to replace the entire SSH setup block (ssh-agent start, key loading, ``~/.ssh`` creation, ssh config).
+3) [TASK][FEATURE][BREAKING] Add ``!reference``-based hooks for deploy job. Extract rsync install, SSH setup and main deploy logic into overridable hidden jobs (``.deploy_rsync_install``, ``.deploy_ssh_setup``, ``.deploy_script``). Add additive hooks (``.deploy_before_script_start``, ``.deploy_before_script_end``, ``.deploy_script_start``, ``.deploy_script_end``). Deprecate ``DEPLOY_SSH_SETUP`` variable — use ``.deploy_ssh_setup`` override instead.
 4) [TASK][FEATURE] Auto-detect package manager (apk/apt-get/dnf/yum) for rsync installation. Skip if rsync already present. Add ``DEPLOY_RSYNC_SKIP`` to bypass installation entirely.
 
 2.0.0

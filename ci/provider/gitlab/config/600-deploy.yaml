@@ -1,13 +1,17 @@
-deploy:
-  stage: deploy
-  resource_group: "deploy"
-  needs:
-    - job: test-frontend
-    - job: test-backend
-    - job: build-frontend
-    - job: build-backend
-  before_script:
-    - if [ -n "$DEPLOY_BEFORE_SCRIPT_START" ]; then eval "$DEPLOY_BEFORE_SCRIPT_START"; fi
+.deploy_before_script_start:
+  script: []
+
+.deploy_before_script_end:
+  script: []
+
+.deploy_script_start:
+  script: []
+
+.deploy_script_end:
+  script: []
+
+.deploy_rsync_install:
+  script:
     - |
       if [ -z "$DEPLOY_RSYNC_SKIP" ] && ! command -v rsync > /dev/null 2>&1; then
         if command -v apk > /dev/null 2>&1; then
@@ -20,26 +24,17 @@ deploy:
           yum install -y rsync
         fi
       fi
-    - |
-      if [ -n "$DEPLOY_SSH_SETUP" ]; then
-        eval "$DEPLOY_SSH_SETUP"
-      else
-        eval $(ssh-agent -s)
-        # SSH_PRIVATE_KEY must be base64 encoded before added to gitlab variable as 'mask variable': "cat privatekey | base64 -w0" (on mac "cat privatekey | base64 -b0")
-        echo -e "$SSH_PRIVATE_KEY" | base64 -d | ssh-add - > /dev/null
-        mkdir -p ~/.ssh && chmod 700 ~/.ssh
-        echo -e "Host *\n\tStrictHostKeyChecking no\n\tUserKnownHostsFile /dev/null" >> ~/.ssh/config
-      fi
-    - if [ -n "$DEPLOY_BEFORE_SCRIPT_END" ]; then eval "$DEPLOY_BEFORE_SCRIPT_END"; fi
-  image:
-    name: composer:latest
-  cache: [ ]
-  variables:
-    GIT_STRATEGY: none
-  retry:
-    max: 2
+
+.deploy_ssh_setup:
   script:
-    - if [ -n "$DEPLOY_SCRIPT_START" ]; then eval "$DEPLOY_SCRIPT_START"; fi
+    - eval $(ssh-agent -s)
+    # SSH_PRIVATE_KEY must be base64 encoded before added to gitlab variable as 'mask variable': "cat privatekey | base64 -w0" (on mac "cat privatekey | base64 -b0")
+    - echo -e "$SSH_PRIVATE_KEY" | base64 -d | ssh-add - > /dev/null
+    - mkdir -p ~/.ssh && chmod 700 ~/.ssh
+    - echo -e "Host *\n\tStrictHostKeyChecking no\n\tUserKnownHostsFile /dev/null" >> ~/.ssh/config
+
+.deploy_script:
+  script:
     - |
       if [ -n "$CI_COMMIT_TAG" ]; then
         export DEPLOYER_SELECTOR="$DEPLOYER_SELECTOR_FOR_TAG"
@@ -67,7 +62,35 @@ deploy:
       cd ${CI_BUILDS_DIR} && mkdir -p deployer && cd deployer && composer require ${DEPLOYER_INSTALL:-deployer/deployer:^7.5} --verbose --prefer-dist --no-progress --no-interaction --optimize-autoloader
       cd ${CI_PROJECT_DIR} && echo ${CI_COMMIT_SHA} > REVISION
       cd ${CI_PROJECT_DIR} && ${CI_BUILDS_DIR}/deployer/vendor/bin/dep ${DEPLOYER_DEPLOY_TASK:-deploy} ${DEPLOYER_BT} ${DEPLOYER_OPTIONS} ${DEPLOYER_SELECTOR} -vv
+
+deploy:
+  stage: deploy
+  resource_group: "deploy"
+  needs:
+    - job: test-frontend
+    - job: test-backend
+    - job: build-frontend
+    - job: build-backend
+  before_script:
+    - !reference [.deploy_before_script_start, script]
+    - if [ -n "$DEPLOY_BEFORE_SCRIPT_START" ]; then eval "$DEPLOY_BEFORE_SCRIPT_START"; fi
+    - !reference [.deploy_rsync_install, script]
+    - !reference [.deploy_ssh_setup, script]
+    - if [ -n "$DEPLOY_BEFORE_SCRIPT_END" ]; then eval "$DEPLOY_BEFORE_SCRIPT_END"; fi
+    - !reference [.deploy_before_script_end, script]
+  image:
+    name: composer:latest
+  cache: []
+  variables:
+    GIT_STRATEGY: none
+  retry:
+    max: 2
+  script:
+    - !reference [.deploy_script_start, script]
+    - if [ -n "$DEPLOY_SCRIPT_START" ]; then eval "$DEPLOY_SCRIPT_START"; fi
+    - !reference [.deploy_script, script]
     - if [ -n "$DEPLOY_SCRIPT_END" ]; then eval "$DEPLOY_SCRIPT_END"; fi
+    - !reference [.deploy_script_end, script]
   rules:
     - if: $CI_COMMIT_BRANCH && $CI_COMMIT_BRANCH =~ $DEPLOY_TRIGGER_BY_CI_COMMIT_BRANCH
     - if: $CI_COMMIT_TAG && $CI_COMMIT_TAG =~ $DEPLOY_TRIGGER_BY_CI_COMMIT_TAG
