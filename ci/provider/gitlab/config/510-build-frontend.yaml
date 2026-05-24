@@ -1,3 +1,12 @@
+.build_frontend_before_script:
+  script: []
+
+.build_frontend_script_start:
+  script: []
+
+.build_frontend_script_end:
+  script: []
+
 build-frontend:
   stage: build
   needs:
@@ -6,8 +15,15 @@ build-frontend:
     name: $FRONTEND_IMAGE
   retry:
     max: 2
+  before_script:
+    - !reference [.build_frontend_before_script, script]
+    - if [ -n "$BUILD_FRONTEND_BEFORE_SCRIPT" ]; then eval "$BUILD_FRONTEND_BEFORE_SCRIPT"; fi
   script:
+    - !reference [.build_frontend_script_start, script]
+    - if [ -n "$BUILD_FRONTEND_SCRIPT_START" ]; then eval "$BUILD_FRONTEND_SCRIPT_START"; fi
     - bash -c "$FRONTEND_COMMAND_BUILD"
+    - if [ -n "$BUILD_FRONTEND_SCRIPT_END" ]; then eval "$BUILD_FRONTEND_SCRIPT_END"; fi
+    - !reference [.build_frontend_script_end, script]
   artifacts:
     paths:
       - $FRONTEND_FOLDER_BUILD_1

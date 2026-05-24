@@ -1,5 +1,17 @@
+.init_before_script:
+  script: []
+
+.init_script:
+  script: []
+
 init:
   stage: init
   image:
     name: $BACKEND_IMAGE
-  script: echo "Init"
+  before_script:
+    - !reference [.init_before_script, script]
+    - if [ -n "$INIT_BEFORE_SCRIPT" ]; then eval "$INIT_BEFORE_SCRIPT"; fi
+  script:
+    - !reference [.init_script, script]
+    - if [ -n "$INIT_SCRIPT" ]; then eval "$INIT_SCRIPT"; fi
+    - echo "Init"

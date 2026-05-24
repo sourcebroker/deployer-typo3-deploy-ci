@@ -9,6 +9,7 @@ Changelog
 3) [TASK][FEATURE][BREAKING] Add ``!reference``-based hooks for deploy job. Extract rsync install, SSH setup and main deploy logic into overridable hidden jobs (``.deploy_rsync_install``, ``.deploy_ssh_setup``, ``.deploy_script``). Add additive hooks (``.deploy_before_script_start``, ``.deploy_before_script_end``, ``.deploy_script_start``, ``.deploy_script_end``). Deprecate ``DEPLOY_SSH_SETUP`` variable — use ``.deploy_ssh_setup`` override instead.
 4) [TASK][FEATURE] Auto-detect package manager (apk/apt-get/dnf/yum) for rsync installation. Skip if rsync already present. Add ``DEPLOY_RSYNC_SKIP`` to bypass installation entirely.
 5) [TASK][FEATURE][BREAKING] Replace ``remote:`` includes in ``main.yaml`` with ``local:`` includes pointing to the config files within the repository.
+6) [TASK][FEATURE] Add hooks to all remaining jobs so users can inject custom steps at any point in the pipeline without overriding entire job definitions.
 
 
 2.0.0

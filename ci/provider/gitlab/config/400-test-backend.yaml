@@ -1,3 +1,12 @@
+.test_backend_before_script:
+  script: []
+
+.test_backend_script_start:
+  script: []
+
+.test_backend_script_end:
+  script: []
+
 test-backend:
   stage: test
   image:
@@ -6,5 +15,12 @@ test-backend:
     - job: init
   retry:
     max: 2
+  before_script:
+    - !reference [.test_backend_before_script, script]
+    - if [ -n "$TEST_BACKEND_BEFORE_SCRIPT" ]; then eval "$TEST_BACKEND_BEFORE_SCRIPT"; fi
   script:
+    - !reference [.test_backend_script_start, script]
+    - if [ -n "$TEST_BACKEND_SCRIPT_START" ]; then eval "$TEST_BACKEND_SCRIPT_START"; fi
     - bash -c "$BACKEND_COMMAND_TEST"
+    - if [ -n "$TEST_BACKEND_SCRIPT_END" ]; then eval "$TEST_BACKEND_SCRIPT_END"; fi
+    - !reference [.test_backend_script_end, script]

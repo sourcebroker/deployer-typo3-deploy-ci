@@ -1,3 +1,12 @@
+.test_frontend_before_script:
+  script: []
+
+.test_frontend_script_start:
+  script: []
+
+.test_frontend_script_end:
+  script: []
+
 test-frontend:
   stage: test
   image:
@@ -6,5 +15,12 @@ test-frontend:
     - job: init
   retry:
     max: 2
+  before_script:
+    - !reference [.test_frontend_before_script, script]
+    - if [ -n "$TEST_FRONTEND_BEFORE_SCRIPT" ]; then eval "$TEST_FRONTEND_BEFORE_SCRIPT"; fi
   script:
+    - !reference [.test_frontend_script_start, script]
+    - if [ -n "$TEST_FRONTEND_SCRIPT_START" ]; then eval "$TEST_FRONTEND_SCRIPT_START"; fi
     - bash -c "$FRONTEND_COMMAND_TESTS"
+    - if [ -n "$TEST_FRONTEND_SCRIPT_END" ]; then eval "$TEST_FRONTEND_SCRIPT_END"; fi
+    - !reference [.test_frontend_script_end, script]

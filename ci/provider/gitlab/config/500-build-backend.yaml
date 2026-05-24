@@ -1,3 +1,12 @@
+.build_backend_before_script:
+  script: []
+
+.build_backend_script_start:
+  script: []
+
+.build_backend_script_end:
+  script: []
+
 build-backend:
   stage: build
   needs:
@@ -6,8 +15,15 @@ build-backend:
     name: $BACKEND_IMAGE
   retry:
     max: 2
+  before_script:
+    - !reference [.build_backend_before_script, script]
+    - if [ -n "$BUILD_BACKEND_BEFORE_SCRIPT" ]; then eval "$BUILD_BACKEND_BEFORE_SCRIPT"; fi
   script:
+    - !reference [.build_backend_script_start, script]
+    - if [ -n "$BUILD_BACKEND_SCRIPT_START" ]; then eval "$BUILD_BACKEND_SCRIPT_START"; fi
     - bash -c "$BACKEND_COMMAND_BUILD"
+    - if [ -n "$BUILD_BACKEND_SCRIPT_END" ]; then eval "$BUILD_BACKEND_SCRIPT_END"; fi
+    - !reference [.build_backend_script_end, script]
   artifacts:
     paths:
       - $BACKEND_FOLDER_BUILD_1
