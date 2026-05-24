@@ -12,6 +12,7 @@ Changelog
 6) [TASK][FEATURE] Add hooks to all remaining jobs so users can inject custom steps at any point in the pipeline without overriding entire job definitions.
 7) [TASK] divide main script into deployer selector part and deploy itself.
 8) [TASK] move check if DEPLOYER_SELECTOR is empty to "deploy_script_run" part.
+9) [TASK] Add new build and deploy triggers.
 
 2.0.0
 -----
