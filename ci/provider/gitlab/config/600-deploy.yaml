@@ -52,14 +52,14 @@
           done
         fi
       fi
-      if [ -z "$DEPLOYER_SELECTOR" ]; then
-        echo "DEPLOYER_SELECTOR is empty. Exiting job."
-        exit 0
-      fi
 
 .deploy_script_run:
   script:
     - |
+      if [ -z "$DEPLOYER_SELECTOR" ]; then
+        echo "DEPLOYER_SELECTOR is empty. Exiting job." >&2
+        exit 0
+      fi
       echo "DEPLOYER_SELECTOR: $DEPLOYER_SELECTOR"
       cd ${CI_BUILDS_DIR} && mkdir -p deployer && cd deployer && composer require ${DEPLOYER_INSTALL:-deployer/deployer:^7.5} --verbose --prefer-dist --no-progress --no-interaction --optimize-autoloader
       cd ${CI_PROJECT_DIR} && echo ${CI_COMMIT_SHA} > REVISION

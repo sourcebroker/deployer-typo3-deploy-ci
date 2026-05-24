@@ -11,6 +11,7 @@ Changelog
 5) [TASK][FEATURE][BREAKING] Replace ``remote:`` includes in ``main.yaml`` with ``local:`` includes pointing to the config files within the repository.
 6) [TASK][FEATURE] Add hooks to all remaining jobs so users can inject custom steps at any point in the pipeline without overriding entire job definitions.
 7) [TASK] divide main script into deployer selector part and deploy itself.
+8) [TASK] move check if DEPLOYER_SELECTOR is empty to "deploy_script_run" part.
 
 2.0.0
 -----
