@@ -7,7 +7,7 @@
 init:
   stage: init
   image:
-    name: $BACKEND_IMAGE
+    name: alpine:3.20
   before_script:
     - !reference [.init_before_script, script]
     - if [ -n "$INIT_BEFORE_SCRIPT" ]; then eval "$INIT_BEFORE_SCRIPT"; fi

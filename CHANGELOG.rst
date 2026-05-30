@@ -13,6 +13,7 @@ Changelog
 7) [TASK] divide main script into deployer selector part and deploy itself.
 8) [TASK] move check if DEPLOYER_SELECTOR is empty to "deploy_script_run" part.
 9) [TASK] Add new build and deploy triggers.
+10) [TASK] Set lighter image as init - alpine:3.20.
 
 2.0.0
 -----
