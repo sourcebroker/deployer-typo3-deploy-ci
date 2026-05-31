@@ -15,6 +15,7 @@ Changelog
 9) [TASK] Add new build and deploy triggers.
 10) [TASK] Set lighter image as init - alpine:3.20.
 11) [TASK] Add new build and deploy triggers (api).
+12) [TASK] Define environment.
 
 2.0.0
 -----

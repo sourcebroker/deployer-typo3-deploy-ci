@@ -68,6 +68,10 @@
 deploy:
   stage: deploy
   resource_group: "deploy"
+  environment:
+    name: $TARGET
+    url: $TARGET_URL
+    deployment_tier: $TARGET_TIER
   needs:
     - job: test-frontend
     - job: test-backend
