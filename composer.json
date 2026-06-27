@@ -15,7 +15,7 @@
     }
   ],
   "require": {
-    "deployer/deployer": "~7.0 || dev-master",
+    "deployer/deployer": "^7.0 || ^8.0 || dev-master",
     "sourcebroker/deployer-loader": "^5 || dev-master"
   },
   "config": {
